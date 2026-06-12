@@ -4,26 +4,31 @@
 # Uses cosmian_kms from PATH, or $COSMIAN_KMS_BIN when set.
 # Appends KMIP_* test variables to $GITHUB_ENV when set (CI);
 # otherwise prints "export KMIP_*=..." lines for eval (local use).
+# The server keeps running; stop it with: kill "$(cat <workdir>/cosmian.pid)"
 set -euo pipefail
 
 WORKDIR="${1:?usage: start-cosmian.sh <workdir>}"
-BIN="${COSMIAN_KMS_BIN:-$(command -v cosmian_kms)}"
+BIN="${COSMIAN_KMS_BIN:-$(command -v cosmian_kms || true)}"
+if [ -z "$BIN" ]; then
+  echo "cosmian_kms not found on PATH; install it or set COSMIAN_KMS_BIN" >&2
+  exit 1
+fi
 mkdir -p "$WORKDIR"
 WORKDIR="$(cd "$WORKDIR" && pwd)"
 cd "$WORKDIR"
 
 openssl req -x509 -newkey rsa:2048 -nodes -days 1 \
-  -keyout ca.key -out ca.pem -subj '/CN=libkmip-test-ca' 2>/dev/null
+  -keyout ca.key -out ca.pem -subj '/CN=libkmip-test-ca'
 openssl req -newkey rsa:2048 -nodes -keyout server.key -out server.csr \
-  -subj '/CN=127.0.0.1' -addext 'subjectAltName=IP:127.0.0.1' 2>/dev/null
+  -subj '/CN=127.0.0.1' -addext 'subjectAltName=IP:127.0.0.1'
 openssl x509 -req -in server.csr -CA ca.pem -CAkey ca.key -CAcreateserial \
-  -days 1 -out server.pem -copy_extensions copy 2>/dev/null
+  -days 1 -out server.pem -copy_extensions copy
 openssl pkcs12 -export -out server.p12 -inkey server.key -in server.pem \
   -password pass:test
 openssl req -newkey rsa:2048 -nodes -keyout client.key -out client.csr \
-  -subj '/CN=libkmip-test-client' 2>/dev/null
+  -subj '/CN=libkmip-test-client'
 openssl x509 -req -in client.csr -CA ca.pem -CAkey ca.key -CAcreateserial \
-  -days 1 -out client.pem 2>/dev/null
+  -days 1 -out client.pem
 
 free_port() {
   python3 -c 'import socket; s = socket.socket(); s.bind(("127.0.0.1", 0)); print(s.getsockname()[1]); s.close()'
