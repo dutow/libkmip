@@ -13,8 +13,8 @@ namespace kmipcore {
       const char *description;
     };
 
-    [[nodiscard]] std::optional<KmipReasonInfo>
-        lookup_kmip_reason_info(int code) {
+    [[nodiscard]] std::optional<KmipReasonInfo> lookup_kmip_reason_info(int code
+    ) {
       switch (code) {
         case KMIP_REASON_ITEM_NOT_FOUND:
           return KmipReasonInfo{

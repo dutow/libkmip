@@ -185,11 +185,9 @@ void test_response_parser_operation_hint_when_operation_absent() {
 
 void test_response_parser_create() {
   auto payload = Element::createStructure(tag::KMIP_TAG_RESPONSE_PAYLOAD);
-  payload->asStructure()->add(
-      Element::createEnumeration(
-          tag::KMIP_TAG_OBJECT_TYPE, KMIP_OBJTYPE_SYMMETRIC_KEY
-      )
-  );
+  payload->asStructure()->add(Element::createEnumeration(
+      tag::KMIP_TAG_OBJECT_TYPE, KMIP_OBJTYPE_SYMMETRIC_KEY
+  ));
   payload->asStructure()->add(
       Element::createTextString(tag::KMIP_TAG_UNIQUE_IDENTIFIER, "uuid-1234")
   );
@@ -271,16 +269,12 @@ void test_response_parser_query() {
   payload->asStructure()->add(
       Element::createEnumeration(tag::KMIP_TAG_OPERATION, KMIP_OP_CREATE)
   );
-  payload->asStructure()->add(
-      Element::createEnumeration(
-          tag::KMIP_TAG_OBJECT_TYPE, KMIP_OBJTYPE_SYMMETRIC_KEY
-      )
-  );
-  payload->asStructure()->add(
-      Element::createTextString(
-          tag::KMIP_TAG_VENDOR_IDENTIFICATION, "ExampleVendor"
-      )
-  );
+  payload->asStructure()->add(Element::createEnumeration(
+      tag::KMIP_TAG_OBJECT_TYPE, KMIP_OBJTYPE_SYMMETRIC_KEY
+  ));
+  payload->asStructure()->add(Element::createTextString(
+      tag::KMIP_TAG_VENDOR_IDENTIFICATION, "ExampleVendor"
+  ));
 
   auto server_info = Element::createStructure(tag::KMIP_TAG_SERVER_INFORMATION);
   server_info->asStructure()->add(
@@ -325,25 +319,19 @@ void test_key_parser_symmetric() {
   payload->asStructure()->add(
       Element::createTextString(tag::KMIP_TAG_UNIQUE_IDENTIFIER, "key-id")
   );
-  payload->asStructure()->add(
-      Element::createEnumeration(
-          tag::KMIP_TAG_OBJECT_TYPE, KMIP_OBJTYPE_SYMMETRIC_KEY
-      )
-  );
+  payload->asStructure()->add(Element::createEnumeration(
+      tag::KMIP_TAG_OBJECT_TYPE, KMIP_OBJTYPE_SYMMETRIC_KEY
+  ));
 
   auto symmetric_key = Element::createStructure(tag::KMIP_TAG_SYMMETRIC_KEY);
   auto key_block = Element::createStructure(tag::KMIP_TAG_KEY_BLOCK);
 
-  key_block->asStructure()->add(
-      Element::createEnumeration(
-          tag::KMIP_TAG_KEY_FORMAT_TYPE, KMIP_KEYFORMAT_RAW
-      )
-  );
-  key_block->asStructure()->add(
-      Element::createEnumeration(
-          tag::KMIP_TAG_CRYPTOGRAPHIC_ALGORITHM, KMIP_CRYPTOALG_AES
-      )
-  );
+  key_block->asStructure()->add(Element::createEnumeration(
+      tag::KMIP_TAG_KEY_FORMAT_TYPE, KMIP_KEYFORMAT_RAW
+  ));
+  key_block->asStructure()->add(Element::createEnumeration(
+      tag::KMIP_TAG_CRYPTOGRAPHIC_ALGORITHM, KMIP_CRYPTOALG_AES
+  ));
 
   auto key_value = Element::createStructure(tag::KMIP_TAG_KEY_VALUE);
   std::vector<uint8_t> actual_key = {0xDE, 0xAD, 0xBE, 0xEF};
@@ -377,35 +365,27 @@ void test_key_parser_secret_binary() {
   payload->asStructure()->add(
       Element::createTextString(tag::KMIP_TAG_UNIQUE_IDENTIFIER, "secret-id")
   );
-  payload->asStructure()->add(
-      Element::createEnumeration(
-          tag::KMIP_TAG_OBJECT_TYPE, KMIP_OBJTYPE_SECRET_DATA
-      )
-  );
+  payload->asStructure()->add(Element::createEnumeration(
+      tag::KMIP_TAG_OBJECT_TYPE, KMIP_OBJTYPE_SECRET_DATA
+  ));
 
   auto secret_data = Element::createStructure(tag::KMIP_TAG_SECRET_DATA);
-  secret_data->asStructure()->add(
-      Element::createEnumeration(
-          tag::KMIP_TAG_SECRET_DATA_TYPE,
-          static_cast<int32_t>(secret_data_type::KMIP_SECDATA_PASSWORD)
-      )
-  );
+  secret_data->asStructure()->add(Element::createEnumeration(
+      tag::KMIP_TAG_SECRET_DATA_TYPE,
+      static_cast<int32_t>(secret_data_type::KMIP_SECDATA_PASSWORD)
+  ));
 
   auto key_block = Element::createStructure(tag::KMIP_TAG_KEY_BLOCK);
-  key_block->asStructure()->add(
-      Element::createEnumeration(
-          tag::KMIP_TAG_KEY_FORMAT_TYPE, KMIP_KEYFORMAT_OPAQUE
-      )
-  );
+  key_block->asStructure()->add(Element::createEnumeration(
+      tag::KMIP_TAG_KEY_FORMAT_TYPE, KMIP_KEYFORMAT_OPAQUE
+  ));
 
   auto key_value = Element::createStructure(tag::KMIP_TAG_KEY_VALUE);
   const std::vector<unsigned char> bytes = {'p', 'a', 's', 's', 0x00, 'x'};
-  key_value->asStructure()->add(
-      Element::createByteString(
-          tag::KMIP_TAG_KEY_MATERIAL,
-          std::vector<uint8_t>(bytes.begin(), bytes.end())
-      )
-  );
+  key_value->asStructure()->add(Element::createByteString(
+      tag::KMIP_TAG_KEY_MATERIAL,
+      std::vector<uint8_t>(bytes.begin(), bytes.end())
+  ));
   key_block->asStructure()->add(key_value);
   secret_data->asStructure()->add(key_block);
   payload->asStructure()->add(secret_data);
@@ -484,11 +464,9 @@ void test_attributes_parser() {
   attributes.push_back(attr1);
 
   auto attr2 = Element::createStructure(tag::KMIP_TAG_ATTRIBUTE);
-  attr2->asStructure()->add(
-      Element::createTextString(
-          tag::KMIP_TAG_ATTRIBUTE_NAME, "Cryptographic Length"
-      )
-  );
+  attr2->asStructure()->add(Element::createTextString(
+      tag::KMIP_TAG_ATTRIBUTE_NAME, "Cryptographic Length"
+  ));
   attr2->asStructure()->add(
       Element::createInteger(tag::KMIP_TAG_ATTRIBUTE_VALUE, 256)
   );
@@ -521,16 +499,12 @@ void test_attributes_parser_extended() {
 
   // Test Crypto Algorithm Enum
   auto attr_alg = Element::createStructure(tag::KMIP_TAG_ATTRIBUTE);
-  attr_alg->asStructure()->add(
-      Element::createTextString(
-          tag::KMIP_TAG_ATTRIBUTE_NAME, "Cryptographic Algorithm"
-      )
-  );
-  attr_alg->asStructure()->add(
-      Element::createEnumeration(
-          tag::KMIP_TAG_ATTRIBUTE_VALUE, KMIP_CRYPTOALG_AES
-      )
-  );
+  attr_alg->asStructure()->add(Element::createTextString(
+      tag::KMIP_TAG_ATTRIBUTE_NAME, "Cryptographic Algorithm"
+  ));
+  attr_alg->asStructure()->add(Element::createEnumeration(
+      tag::KMIP_TAG_ATTRIBUTE_VALUE, KMIP_CRYPTOALG_AES
+  ));
   attributes.push_back(attr_alg);
 
   auto parsed_attrs = AttributesParser::parse(attributes);
@@ -553,39 +527,31 @@ void test_attributes_parser_v2_typed() {
   std::vector<std::shared_ptr<Element>> v2_attrs;
 
   // Cryptographic Algorithm (Enumeration with specific tag)
-  v2_attrs.push_back(
-      Element::createEnumeration(
-          tag::KMIP_TAG_CRYPTOGRAPHIC_ALGORITHM, KMIP_CRYPTOALG_AES
-      )
-  );
+  v2_attrs.push_back(Element::createEnumeration(
+      tag::KMIP_TAG_CRYPTOGRAPHIC_ALGORITHM, KMIP_CRYPTOALG_AES
+  ));
   // Cryptographic Length (Integer with specific tag)
   v2_attrs.push_back(
       Element::createInteger(tag::KMIP_TAG_CRYPTOGRAPHIC_LENGTH, 256)
   );
   // Cryptographic Usage Mask (Integer with specific tag)
-  v2_attrs.push_back(
-      Element::createInteger(
-          tag::KMIP_TAG_CRYPTOGRAPHIC_USAGE_MASK,
-          KMIP_CRYPTOMASK_ENCRYPT | KMIP_CRYPTOMASK_DECRYPT
-      )
-  );
+  v2_attrs.push_back(Element::createInteger(
+      tag::KMIP_TAG_CRYPTOGRAPHIC_USAGE_MASK,
+      KMIP_CRYPTOMASK_ENCRYPT | KMIP_CRYPTOMASK_DECRYPT
+  ));
   // State (Enumeration with specific tag)
-  v2_attrs.push_back(
-      Element::createEnumeration(
-          tag::KMIP_TAG_STATE, static_cast<int32_t>(state::KMIP_STATE_ACTIVE)
-      )
-  );
+  v2_attrs.push_back(Element::createEnumeration(
+      tag::KMIP_TAG_STATE, static_cast<int32_t>(state::KMIP_STATE_ACTIVE)
+  ));
   // Name (Structure with Name Value + Name Type)
   {
     auto name_elem = Element::createStructure(tag::KMIP_TAG_NAME);
     name_elem->asStructure()->add(
         Element::createTextString(tag::KMIP_TAG_NAME_VALUE, "TestKey2")
     );
-    name_elem->asStructure()->add(
-        Element::createEnumeration(
-            tag::KMIP_TAG_NAME_TYPE, KMIP_NAME_UNINTERPRETED_TEXT_STRING
-        )
-    );
+    name_elem->asStructure()->add(Element::createEnumeration(
+        tag::KMIP_TAG_NAME_TYPE, KMIP_NAME_UNINTERPRETED_TEXT_STRING
+    ));
     v2_attrs.push_back(name_elem);
   }
   // Object Group (Text String with specific tag)
@@ -637,12 +603,10 @@ void test_attributes_parser_legacy_wrapper_preserves_generic_types() {
   bytes_attr->asStructure()->add(
       Element::createTextString(tag::KMIP_TAG_ATTRIBUTE_NAME, "Custom Bytes")
   );
-  bytes_attr->asStructure()->add(
-      Element::createByteString(
-          tag::KMIP_TAG_ATTRIBUTE_VALUE,
-          std::vector<uint8_t>{0xDE, 0xAD, 0xBE, 0xEF}
-      )
-  );
+  bytes_attr->asStructure()->add(Element::createByteString(
+      tag::KMIP_TAG_ATTRIBUTE_VALUE,
+      std::vector<uint8_t>{0xDE, 0xAD, 0xBE, 0xEF}
+  ));
   attributes.push_back(bytes_attr);
 
   auto interval_attr = Element::createStructure(tag::KMIP_TAG_ATTRIBUTE);
@@ -655,16 +619,12 @@ void test_attributes_parser_legacy_wrapper_preserves_generic_types() {
   attributes.push_back(interval_attr);
 
   auto dt_ext_attr = Element::createStructure(tag::KMIP_TAG_ATTRIBUTE);
-  dt_ext_attr->asStructure()->add(
-      Element::createTextString(
-          tag::KMIP_TAG_ATTRIBUTE_NAME, "Custom DateTimeExtended"
-      )
-  );
-  dt_ext_attr->asStructure()->add(
-      Element::createDateTimeExtended(
-          tag::KMIP_TAG_ATTRIBUTE_VALUE, 1700000000123456LL
-      )
-  );
+  dt_ext_attr->asStructure()->add(Element::createTextString(
+      tag::KMIP_TAG_ATTRIBUTE_NAME, "Custom DateTimeExtended"
+  ));
+  dt_ext_attr->asStructure()->add(Element::createDateTimeExtended(
+      tag::KMIP_TAG_ATTRIBUTE_VALUE, 1700000000123456LL
+  ));
   attributes.push_back(dt_ext_attr);
 
   auto parsed = AttributesParser::parse(attributes);
@@ -749,19 +709,15 @@ void test_get_attribute_list_response_supports_v2_attribute_reference() {
   );
 
   auto state_ref = Element::createStructure(tag::KMIP_TAG_ATTRIBUTE_REFERENCE);
-  state_ref->asStructure()->add(
-      Element::createEnumeration(
-          tag::KMIP_TAG_ATTRIBUTE_REFERENCE, KMIP_TAG_STATE
-      )
-  );
+  state_ref->asStructure()->add(Element::createEnumeration(
+      tag::KMIP_TAG_ATTRIBUTE_REFERENCE, KMIP_TAG_STATE
+  ));
   payload->asStructure()->add(state_ref);
 
   auto custom_ref = Element::createStructure(tag::KMIP_TAG_ATTRIBUTE_REFERENCE);
-  custom_ref->asStructure()->add(
-      Element::createTextString(
-          tag::KMIP_TAG_ATTRIBUTE_NAME, "Vendor Custom Attr"
-      )
-  );
+  custom_ref->asStructure()->add(Element::createTextString(
+      tag::KMIP_TAG_ATTRIBUTE_NAME, "Vendor Custom Attr"
+  ));
   payload->asStructure()->add(custom_ref);
 
   auto bytes = create_mock_response_bytes(KMIP_OP_GET_ATTRIBUTE_LIST, payload);
@@ -817,19 +773,15 @@ void test_formatter_redacts_sensitive_fields() {
   root->asStructure()->add(
       Element::createTextString(tag::KMIP_TAG_PASSWORD, "s3cr3t")
   );
-  root->asStructure()->add(
-      Element::createByteString(
-          tag::KMIP_TAG_KEY_MATERIAL, {0xDE, 0xAD, 0xBE, 0xEF}
-      )
-  );
+  root->asStructure()->add(Element::createByteString(
+      tag::KMIP_TAG_KEY_MATERIAL, {0xDE, 0xAD, 0xBE, 0xEF}
+  ));
 
   auto secret_data = Element::createStructure(tag::KMIP_TAG_SECRET_DATA);
-  secret_data->asStructure()->add(
-      Element::createEnumeration(
-          tag::KMIP_TAG_SECRET_DATA_TYPE,
-          static_cast<int32_t>(secret_data_type::KMIP_SECDATA_PASSWORD)
-      )
-  );
+  secret_data->asStructure()->add(Element::createEnumeration(
+      tag::KMIP_TAG_SECRET_DATA_TYPE,
+      static_cast<int32_t>(secret_data_type::KMIP_SECDATA_PASSWORD)
+  ));
   root->asStructure()->add(secret_data);
 
   const auto formatted = format_element(root);
@@ -871,14 +823,12 @@ void test_logger_interface() {
   assert(logger.shouldLog(LogLevel::Debug));
   assert(!logger.shouldLog(LogLevel::Info));
 
-  logger.log(
-      LogRecord{
-          .level = LogLevel::Debug,
-          .component = "kmip.protocol",
-          .event = "request",
-          .message = "formatted ttlv"
-      }
-  );
+  logger.log(LogRecord{
+      .level = LogLevel::Debug,
+      .component = "kmip.protocol",
+      .event = "request",
+      .message = "formatted ttlv"
+  });
 
   assert(logger.records.size() == 1);
   assert(logger.records[0].level == LogLevel::Debug);

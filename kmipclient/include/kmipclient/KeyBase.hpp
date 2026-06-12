@@ -80,8 +80,8 @@ namespace kmipclient {
     // ---- Generic string attribute helpers (backward compatibility) ----
 
     /** @brief Returns a generic string attribute value, or empty string. */
-    [[nodiscard]] const std::string &
-        attribute_value(const std::string &name) const noexcept {
+    [[nodiscard]] const std::string &attribute_value(const std::string &name
+    ) const noexcept {
       return attributes_.get(name);
     }
 

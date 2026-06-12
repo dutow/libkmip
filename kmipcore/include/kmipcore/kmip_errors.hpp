@@ -16,8 +16,8 @@ namespace kmipcore {
   /**
    * @brief Creates an error_code in the KMIP category from a native code.
    */
-  [[nodiscard]] std::error_code
-      make_kmip_error_code(int native_error_code) noexcept;
+  [[nodiscard]] std::error_code make_kmip_error_code(int native_error_code
+  ) noexcept;
 
   /**
    * @brief Base exception for KMIP core protocol/encoding failures.

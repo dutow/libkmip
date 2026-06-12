@@ -183,8 +183,7 @@ namespace kmipcore {
     return crypto_length_;
   }
   cryptographic_usage_mask Attributes::usage_mask() const noexcept {
-    return usage_mask_.value_or(
-        cryptographic_usage_mask::KMIP_CRYPTOMASK_UNSET
+    return usage_mask_.value_or(cryptographic_usage_mask::KMIP_CRYPTOMASK_UNSET
     );
   }
   state Attributes::object_state() const noexcept {
@@ -211,8 +210,8 @@ namespace kmipcore {
     crypto_length_.reset();
     return *this;
   }
-  Attributes &
-      Attributes::set_usage_mask(cryptographic_usage_mask mask) noexcept {
+  Attributes &Attributes::set_usage_mask(cryptographic_usage_mask mask
+  ) noexcept {
     if (mask == cryptographic_usage_mask::KMIP_CRYPTOMASK_UNSET) {
       usage_mask_.reset();
     } else {
@@ -342,8 +341,8 @@ namespace kmipcore {
     return empty;
   }
 
-  std::optional<std::string>
-      Attributes::get_as_string(std::string_view name) const {
+  std::optional<std::string> Attributes::get_as_string(std::string_view name
+  ) const {
     const auto it = generic_.find(std::string(name));
     if (it == generic_.end()) {
       return std::nullopt;
@@ -351,8 +350,8 @@ namespace kmipcore {
     return value_to_string(it->second);
   }
 
-  std::optional<int32_t>
-      Attributes::get_int(std::string_view name) const noexcept {
+  std::optional<int32_t> Attributes::get_int(std::string_view name
+  ) const noexcept {
     const auto it = generic_.find(std::string(name));
     if (it == generic_.end()) {
       return std::nullopt;
@@ -363,8 +362,8 @@ namespace kmipcore {
     return std::nullopt;
   }
 
-  std::optional<int64_t>
-      Attributes::get_long(std::string_view name) const noexcept {
+  std::optional<int64_t> Attributes::get_long(std::string_view name
+  ) const noexcept {
     const auto it = generic_.find(std::string(name));
     if (it == generic_.end()) {
       return std::nullopt;

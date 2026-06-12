@@ -60,9 +60,9 @@ namespace kmipcore {
       std::vector<unsigned char> kv(raw_bytes.begin(), raw_bytes.end());
 
       // Parse attributes from the key value's Attribute children.
-      Attributes key_attrs = AttributesParser::parse(
-          key_value->getChildren(tag::KMIP_TAG_ATTRIBUTE)
-      );
+      Attributes key_attrs =
+          AttributesParser::parse(key_value->getChildren(tag::KMIP_TAG_ATTRIBUTE
+          ));
 
       // Algorithm and Length may also appear directly in the Key Block.
       if (auto alg_elem =
@@ -133,8 +133,7 @@ namespace kmipcore {
     secret.set_value(
         std::vector<unsigned char>(raw_bytes.begin(), raw_bytes.end())
     );
-    secret.set_secret_type(
-        static_cast<secret_data_type>(secret_type->toEnum())
+    secret.set_secret_type(static_cast<secret_data_type>(secret_type->toEnum())
     );
     return secret;
   }

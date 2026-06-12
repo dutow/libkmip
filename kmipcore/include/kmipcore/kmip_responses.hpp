@@ -68,8 +68,8 @@ namespace kmipcore {
     using Base::Base;  // Inherit constructors
 
     /** @brief Converts generic response item into typed simple-id response. */
-    static SimpleIdResponseBatchItem
-        fromBatchItem(const ResponseBatchItem &item) {
+    static SimpleIdResponseBatchItem fromBatchItem(const ResponseBatchItem &item
+    ) {
       detail::expect_operation(item, OpCode, "SimpleIdResponseBatchItem");
 
       SimpleIdResponseBatchItem result(item);

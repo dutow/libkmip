@@ -32,8 +32,8 @@ namespace kmipclient {
     [[nodiscard]] std::unique_ptr<Key> clone() const override;
 
     [[nodiscard]] static SymmetricKey aes_from_hex(const std::string &hex);
-    [[nodiscard]] static SymmetricKey
-        aes_from_base64(const std::string &base64);
+    [[nodiscard]] static SymmetricKey aes_from_base64(const std::string &base64
+    );
     [[nodiscard]] static SymmetricKey
         aes_from_value(const std::vector<unsigned char> &val);
     [[nodiscard]] static SymmetricKey

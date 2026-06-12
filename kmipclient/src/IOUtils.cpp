@@ -40,22 +40,19 @@ namespace kmipclient {
 
   }  // namespace
 
-  void IOUtils::log_debug(
-      const char *event, std::span<const uint8_t> ttlv
-  ) const {
+  void IOUtils::log_debug(const char *event, std::span<const uint8_t> ttlv)
+      const {
     try {
       if (!logger_ || !logger_->shouldLog(kmipcore::LogLevel::Debug)) {
         return;
       }
 
-      logger_->log(
-          kmipcore::LogRecord{
-              .level = kmipcore::LogLevel::Debug,
-              .component = "kmip.protocol",
-              .event = event,
-              .message = kmipcore::format_ttlv(ttlv)
-          }
-      );
+      logger_->log(kmipcore::LogRecord{
+          .level = kmipcore::LogLevel::Debug,
+          .component = "kmip.protocol",
+          .event = event,
+          .message = kmipcore::format_ttlv(ttlv)
+      });
     } catch (...) {
       // Logging is strictly best-effort: protocol operations must not fail
       // because a custom logger threw.
@@ -72,18 +69,14 @@ namespace kmipclient {
 
     int total_sent = 0;
     while (total_sent < dlen) {
-      const int sent = net_client.send(
-          std::span<const uint8_t>(request_bytes)
-              .subspan(static_cast<size_t>(total_sent))
-      );
+      const int sent =
+          net_client.send(std::span<const uint8_t>(request_bytes)
+                              .subspan(static_cast<size_t>(total_sent)));
       if (sent <= 0) {
         std::ostringstream oss;
         oss << "Can not send request. Bytes total: " << dlen
             << ", bytes sent: " << total_sent;
-        throw KmipIOException(
-            kmipcore::KMIP_IO_FAILURE,
-            oss.str()
-        );
+        throw KmipIOException(kmipcore::KMIP_IO_FAILURE, oss.str());
       }
       total_sent += sent;
     }
@@ -99,10 +92,7 @@ namespace kmipclient {
         std::ostringstream oss;
         oss << "Connection closed or error while reading. Expected " << n
             << ", got " << total_read;
-        throw KmipIOException(
-            kmipcore::KMIP_IO_FAILURE,
-            oss.str()
-        );
+        throw KmipIOException(kmipcore::KMIP_IO_FAILURE, oss.str());
       }
       total_read += received;
     }
@@ -120,10 +110,7 @@ namespace kmipclient {
       std::ostringstream oss;
       oss << "Message too long. Length: " << length
           << ", allowed: " << effective_limit;
-      throw KmipIOException(
-          kmipcore::KMIP_EXCEED_MAX_MESSAGE_SIZE,
-          oss.str()
-      );
+      throw KmipIOException(kmipcore::KMIP_EXCEED_MAX_MESSAGE_SIZE, oss.str());
     }
 
     std::vector<uint8_t> response(
@@ -131,11 +118,9 @@ namespace kmipclient {
     );
     memcpy(response.data(), msg_len_buf.data(), KMIP_MSG_LENGTH_BYTES);
 
-    read_exact(
-        std::span(response).subspan(
-            KMIP_MSG_LENGTH_BYTES, static_cast<size_t>(length)
-        )
-    );
+    read_exact(std::span(response).subspan(
+        KMIP_MSG_LENGTH_BYTES, static_cast<size_t>(length)
+    ));
 
 
     return response;

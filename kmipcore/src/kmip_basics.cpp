@@ -50,8 +50,7 @@ namespace kmipcore {
          i < value_offset + padded_length;
          ++i) {
       if (data[i] != 0) {
-        throw KmipException(
-            "Invalid TTLV padding: non-zero padding byte found"
+        throw KmipException("Invalid TTLV padding: non-zero padding byte found"
         );
       }
     }
@@ -84,9 +83,9 @@ namespace kmipcore {
       content_buf.writeBytes(std::as_bytes(std::span{&wire, 1}));
       payload_length = 4;
     } else if (std::holds_alternative<LongInteger>(value)) {
-      std::uint64_t wire = to_be64(
-          static_cast<std::uint64_t>(std::get<LongInteger>(value).value)
-      );
+      std::uint64_t wire =
+          to_be64(static_cast<std::uint64_t>(std::get<LongInteger>(value).value)
+          );
       content_buf.writeBytes(std::as_bytes(std::span{&wire, 1}));
       payload_length = 8;
     } else if (std::holds_alternative<BigInteger>(value)) {
@@ -94,9 +93,9 @@ namespace kmipcore {
       content_buf.writeBytes(std::as_bytes(std::span(v.data(), v.size())));
       payload_length = v.size();
     } else if (std::holds_alternative<Enumeration>(value)) {
-      std::uint32_t wire = to_be32(
-          static_cast<std::uint32_t>(std::get<Enumeration>(value).value)
-      );
+      std::uint32_t wire =
+          to_be32(static_cast<std::uint32_t>(std::get<Enumeration>(value).value)
+          );
       content_buf.writeBytes(std::as_bytes(std::span{&wire, 1}));
       payload_length = 4;
     } else if (std::holds_alternative<Boolean>(value)) {
@@ -179,12 +178,12 @@ namespace kmipcore {
     std::size_t padded_length = length;
     if (length % 8 != 0 && type != Type::KMIP_TYPE_STRUCTURE) {
       padded_length +=
-          (8 -
-           (length % 8));  // Doesn't apply to structure?
-                           // Structure variable length is usually handled
-                           // differently because it contains other items
-                           // aligned on 8-byte boundaries. Actually for
-                           // Structure type, length is sum of encoded items.
+          (8 - (length % 8)
+          );  // Doesn't apply to structure?
+              // Structure variable length is usually handled
+              // differently because it contains other items
+              // aligned on 8-byte boundaries. Actually for
+              // Structure type, length is sum of encoded items.
       // Since all encoded items are multiple of 8 bytes, Structure length
       // should be multiple of 8.
     }
@@ -402,8 +401,8 @@ namespace kmipcore {
     return nullptr;
   }
 
-  std::vector<std::shared_ptr<Element>>
-      Structure::findAll(Tag child_tag) const {
+  std::vector<std::shared_ptr<Element>> Structure::findAll(Tag child_tag
+  ) const {
     std::vector<std::shared_ptr<Element>> matches;
     for (const auto &item : items) {
       if (item->tag == child_tag) {
@@ -421,8 +420,8 @@ namespace kmipcore {
     return s->find(child_tag);
   }
 
-  std::vector<std::shared_ptr<Element>>
-      Element::getChildren(Tag child_tag) const {
+  std::vector<std::shared_ptr<Element>> Element::getChildren(Tag child_tag
+  ) const {
     const auto *s = std::get_if<Structure>(&value);
     if (!s) {
       return {};

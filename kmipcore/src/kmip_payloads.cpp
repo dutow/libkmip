@@ -44,8 +44,7 @@ namespace kmipcore {
   // === LocateRequestPayload ===
 
   std::shared_ptr<Element> LocateRequestPayload::toElement() const {
-    auto structure = Element::createStructure(
-        tag::KMIP_TAG_REQUEST_PAYLOAD
+    auto structure = Element::createStructure(tag::KMIP_TAG_REQUEST_PAYLOAD
     );  // or payload tag depending on usage
     // Actually usually inserted into BatchItem with specific tag, or just as
     // payload. Spec says Locate Request Payload is a Structure.

@@ -987,12 +987,10 @@ namespace kmipcore {
           attribute_type::KMIP_ATTR_CRYPTOGRAPHIC_ALGORITHM
       );
   inline constexpr std::uint32_t KMIP_ATTR_CRYPTOGRAPHIC_LENGTH =
-      static_cast<std::uint32_t>(
-          attribute_type::KMIP_ATTR_CRYPTOGRAPHIC_LENGTH
+      static_cast<std::uint32_t>(attribute_type::KMIP_ATTR_CRYPTOGRAPHIC_LENGTH
       );
   inline constexpr std::uint32_t KMIP_ATTR_OPERATION_POLICY_NAME =
-      static_cast<std::uint32_t>(
-          attribute_type::KMIP_ATTR_OPERATION_POLICY_NAME
+      static_cast<std::uint32_t>(attribute_type::KMIP_ATTR_OPERATION_POLICY_NAME
       );
   inline constexpr std::uint32_t KMIP_ATTR_CRYPTOGRAPHIC_USAGE_MASK =
       static_cast<std::uint32_t>(
@@ -1151,8 +1149,7 @@ namespace kmipcore {
           cryptographic_algorithm::KMIP_CRYPTOALG_SKIPJACK
       );
   inline constexpr std::uint32_t KMIP_CRYPTOALG_TWOFISH =
-      static_cast<std::uint32_t>(
-          cryptographic_algorithm::KMIP_CRYPTOALG_TWOFISH
+      static_cast<std::uint32_t>(cryptographic_algorithm::KMIP_CRYPTOALG_TWOFISH
       );
   inline constexpr std::uint32_t KMIP_CRYPTOALG_EC =
       static_cast<std::uint32_t>(cryptographic_algorithm::KMIP_CRYPTOALG_EC);
@@ -1257,18 +1254,15 @@ namespace kmipcore {
           cryptographic_algorithm::KMIP_CRYPTOALG_MCELIECE_8192128
       );
   inline constexpr std::uint32_t KMIP_CRYPTOALG_ED25519 =
-      static_cast<std::uint32_t>(
-          cryptographic_algorithm::KMIP_CRYPTOALG_ED25519
+      static_cast<std::uint32_t>(cryptographic_algorithm::KMIP_CRYPTOALG_ED25519
       );
   inline constexpr std::uint32_t KMIP_CRYPTOALG_ED448 =
       static_cast<std::uint32_t>(cryptographic_algorithm::KMIP_CRYPTOALG_ED448);
   inline constexpr std::uint32_t KMIP_CRYPTOMASK_UNSET =
-      static_cast<std::uint32_t>(
-          cryptographic_usage_mask::KMIP_CRYPTOMASK_UNSET
+      static_cast<std::uint32_t>(cryptographic_usage_mask::KMIP_CRYPTOMASK_UNSET
       );
   inline constexpr std::uint32_t KMIP_CRYPTOMASK_SIGN =
-      static_cast<std::uint32_t>(
-          cryptographic_usage_mask::KMIP_CRYPTOMASK_SIGN
+      static_cast<std::uint32_t>(cryptographic_usage_mask::KMIP_CRYPTOMASK_SIGN
       );
   inline constexpr std::uint32_t KMIP_CRYPTOMASK_VERIFY =
       static_cast<std::uint32_t>(
@@ -1503,8 +1497,7 @@ namespace kmipcore {
   inline constexpr std::uint32_t KMIP_KEYFORMAT_X509 =
       static_cast<std::uint32_t>(key_format_type::KMIP_KEYFORMAT_X509);
   inline constexpr std::uint32_t KMIP_KEYFORMAT_EC_PRIVATE_KEY =
-      static_cast<std::uint32_t>(
-          key_format_type::KMIP_KEYFORMAT_EC_PRIVATE_KEY
+      static_cast<std::uint32_t>(key_format_type::KMIP_KEYFORMAT_EC_PRIVATE_KEY
       );
   inline constexpr std::uint32_t KMIP_KEYFORMAT_TRANS_SYMMETRIC_KEY =
       static_cast<std::uint32_t>(
@@ -1625,8 +1618,7 @@ namespace kmipcore {
   inline constexpr std::uint32_t KMIP_MASKGEN_MGF1 =
       static_cast<std::uint32_t>(mask_generator::KMIP_MASKGEN_MGF1);
   inline constexpr std::uint32_t KMIP_NAME_UNINTERPRETED_TEXT_STRING =
-      static_cast<std::uint32_t>(
-          name_type::KMIP_NAME_UNINTERPRETED_TEXT_STRING
+      static_cast<std::uint32_t>(name_type::KMIP_NAME_UNINTERPRETED_TEXT_STRING
       );
   inline constexpr std::uint32_t KMIP_NAME_URI =
       static_cast<std::uint32_t>(name_type::KMIP_NAME_URI);
@@ -1775,20 +1767,17 @@ namespace kmipcore {
   inline constexpr std::uint32_t KMIP_PAD_PSS =
       static_cast<std::uint32_t>(padding_method::KMIP_PAD_PSS);
   inline constexpr std::uint32_t KMIP_PROTECT_SOFTWARE =
-      static_cast<std::uint32_t>(
-          protection_storage_mask::KMIP_PROTECT_SOFTWARE
+      static_cast<std::uint32_t>(protection_storage_mask::KMIP_PROTECT_SOFTWARE
       );
   inline constexpr std::uint32_t KMIP_PROTECT_HARDWARE =
-      static_cast<std::uint32_t>(
-          protection_storage_mask::KMIP_PROTECT_HARDWARE
+      static_cast<std::uint32_t>(protection_storage_mask::KMIP_PROTECT_HARDWARE
       );
   inline constexpr std::uint32_t KMIP_PROTECT_ON_PROCESSOR =
       static_cast<std::uint32_t>(
           protection_storage_mask::KMIP_PROTECT_ON_PROCESSOR
       );
   inline constexpr std::uint32_t KMIP_PROTECT_ON_SYSTEM =
-      static_cast<std::uint32_t>(
-          protection_storage_mask::KMIP_PROTECT_ON_SYSTEM
+      static_cast<std::uint32_t>(protection_storage_mask::KMIP_PROTECT_ON_SYSTEM
       );
   inline constexpr std::uint32_t KMIP_PROTECT_OFF_SYSTEM =
       static_cast<std::uint32_t>(
@@ -1803,8 +1792,7 @@ namespace kmipcore {
           protection_storage_mask::KMIP_PROTECT_OPERATING_SYSTEM
       );
   inline constexpr std::uint32_t KMIP_PROTECT_CONTAINER =
-      static_cast<std::uint32_t>(
-          protection_storage_mask::KMIP_PROTECT_CONTAINER
+      static_cast<std::uint32_t>(protection_storage_mask::KMIP_PROTECT_CONTAINER
       );
   inline constexpr std::uint32_t KMIP_PROTECT_ON_PREMISES =
       static_cast<std::uint32_t>(
@@ -1823,8 +1811,7 @@ namespace kmipcore {
           protection_storage_mask::KMIP_PROTECT_OUTSOURCED
       );
   inline constexpr std::uint32_t KMIP_PROTECT_VALIDATED =
-      static_cast<std::uint32_t>(
-          protection_storage_mask::KMIP_PROTECT_VALIDATED
+      static_cast<std::uint32_t>(protection_storage_mask::KMIP_PROTECT_VALIDATED
       );
   inline constexpr std::uint32_t KMIP_PROTECT_SAME_JURISDICTION =
       static_cast<std::uint32_t>(
@@ -1859,8 +1846,7 @@ namespace kmipcore {
           query_function::KMIP_QUERY_CLIENT_REGISTRATION_METHODS
       );
   inline constexpr std::uint32_t KMIP_QUERY_DEFAULTS_INFORMATION =
-      static_cast<std::uint32_t>(
-          query_function::KMIP_QUERY_DEFAULTS_INFORMATION
+      static_cast<std::uint32_t>(query_function::KMIP_QUERY_DEFAULTS_INFORMATION
       );
   inline constexpr std::uint32_t KMIP_QUERY_STORAGE_PROTECTION_MASKS =
       static_cast<std::uint32_t>(
@@ -1905,8 +1891,7 @@ namespace kmipcore {
   inline constexpr std::uint32_t KMIP_REASON_OBJECT_ARCHIVED =
       static_cast<std::uint32_t>(result_reason::KMIP_REASON_OBJECT_ARCHIVED);
   inline constexpr std::uint32_t KMIP_REASON_INDEX_OUT_OF_BOUNDS =
-      static_cast<std::uint32_t>(
-          result_reason::KMIP_REASON_INDEX_OUT_OF_BOUNDS
+      static_cast<std::uint32_t>(result_reason::KMIP_REASON_INDEX_OUT_OF_BOUNDS
       );
   inline constexpr std::uint32_t
       KMIP_REASON_APPLICATION_NAMESPACE_NOT_SUPPORTED =
@@ -1931,8 +1916,7 @@ namespace kmipcore {
           result_reason::KMIP_REASON_KEY_VALUE_NOT_PRESENT
       );
   inline constexpr std::uint32_t KMIP_REASON_ATTESTATION_REQUIRED =
-      static_cast<std::uint32_t>(
-          result_reason::KMIP_REASON_ATTESTATION_REQUIRED
+      static_cast<std::uint32_t>(result_reason::KMIP_REASON_ATTESTATION_REQUIRED
       );
   inline constexpr std::uint32_t KMIP_REASON_ATTESTATION_FAILED =
       static_cast<std::uint32_t>(result_reason::KMIP_REASON_ATTESTATION_FAILED);
@@ -1947,16 +1931,14 @@ namespace kmipcore {
   inline constexpr std::uint32_t KMIP_REASON_INVALID_TICKET =
       static_cast<std::uint32_t>(result_reason::KMIP_REASON_INVALID_TICKET);
   inline constexpr std::uint32_t KMIP_REASON_USAGE_LIMIT_EXCEEDED =
-      static_cast<std::uint32_t>(
-          result_reason::KMIP_REASON_USAGE_LIMIT_EXCEEDED
+      static_cast<std::uint32_t>(result_reason::KMIP_REASON_USAGE_LIMIT_EXCEEDED
       );
   inline constexpr std::uint32_t KMIP_REASON_NUMERIC_RANGE =
       static_cast<std::uint32_t>(result_reason::KMIP_REASON_NUMERIC_RANGE);
   inline constexpr std::uint32_t KMIP_REASON_INVALID_DATA_TYPE =
       static_cast<std::uint32_t>(result_reason::KMIP_REASON_INVALID_DATA_TYPE);
   inline constexpr std::uint32_t KMIP_REASON_READ_ONLY_ATTRIBUTE =
-      static_cast<std::uint32_t>(
-          result_reason::KMIP_REASON_READ_ONLY_ATTRIBUTE
+      static_cast<std::uint32_t>(result_reason::KMIP_REASON_READ_ONLY_ATTRIBUTE
       );
   inline constexpr std::uint32_t KMIP_REASON_MULTI_VALUED_ATTRIBUTE =
       static_cast<std::uint32_t>(
@@ -1971,12 +1953,10 @@ namespace kmipcore {
           result_reason::KMIP_REASON_ATTRIBUTE_INSTANCE_NOT_FOUND
       );
   inline constexpr std::uint32_t KMIP_REASON_ATTRIBUTE_NOT_FOUND =
-      static_cast<std::uint32_t>(
-          result_reason::KMIP_REASON_ATTRIBUTE_NOT_FOUND
+      static_cast<std::uint32_t>(result_reason::KMIP_REASON_ATTRIBUTE_NOT_FOUND
       );
   inline constexpr std::uint32_t KMIP_REASON_ATTRIBUTE_READ_ONLY =
-      static_cast<std::uint32_t>(
-          result_reason::KMIP_REASON_ATTRIBUTE_READ_ONLY
+      static_cast<std::uint32_t>(result_reason::KMIP_REASON_ATTRIBUTE_READ_ONLY
       );
   inline constexpr std::uint32_t KMIP_REASON_ATTRIBUTE_SINGLE_VALUED =
       static_cast<std::uint32_t>(
@@ -1991,8 +1971,7 @@ namespace kmipcore {
   inline constexpr std::uint32_t KMIP_REASON_CODEC_ERROR =
       static_cast<std::uint32_t>(result_reason::KMIP_REASON_CODEC_ERROR);
   inline constexpr std::uint32_t KMIP_REASON_ILLEGAL_OBJECT_TYPE =
-      static_cast<std::uint32_t>(
-          result_reason::KMIP_REASON_ILLEGAL_OBJECT_TYPE
+      static_cast<std::uint32_t>(result_reason::KMIP_REASON_ILLEGAL_OBJECT_TYPE
       );
   inline constexpr std::uint32_t
       KMIP_REASON_INCOMPATIBLE_CRYPTOGRAPHIC_USAGE_MASK =
@@ -2021,8 +2000,7 @@ namespace kmipcore {
   inline constexpr std::uint32_t KMIP_REASON_INVALID_CSR =
       static_cast<std::uint32_t>(result_reason::KMIP_REASON_INVALID_CSR);
   inline constexpr std::uint32_t KMIP_REASON_INVALID_OBJECT_TYPE =
-      static_cast<std::uint32_t>(
-          result_reason::KMIP_REASON_INVALID_OBJECT_TYPE
+      static_cast<std::uint32_t>(result_reason::KMIP_REASON_INVALID_OBJECT_TYPE
       );
   inline constexpr std::uint32_t KMIP_REASON_KEY_WRAP_TYPE_NOT_SUPPORTED =
       static_cast<std::uint32_t>(
@@ -2047,8 +2025,7 @@ namespace kmipcore {
           result_reason::KMIP_REASON_SERVER_LIMIT_EXCEEDED
       );
   inline constexpr std::uint32_t KMIP_REASON_UNKNOWN_ENUMERATION =
-      static_cast<std::uint32_t>(
-          result_reason::KMIP_REASON_UNKNOWN_ENUMERATION
+      static_cast<std::uint32_t>(result_reason::KMIP_REASON_UNKNOWN_ENUMERATION
       );
   inline constexpr std::uint32_t KMIP_REASON_UNKNOWN_MESSAGE_EXTENSION =
       static_cast<std::uint32_t>(
@@ -2138,8 +2115,7 @@ namespace kmipcore {
   inline constexpr std::uint32_t KMIP_TAG_APPLICATION_NAMESPACE =
       static_cast<std::uint32_t>(tag::KMIP_TAG_APPLICATION_NAMESPACE);
   inline constexpr std::uint32_t KMIP_TAG_APPLICATION_SPECIFIC_INFORMATION =
-      static_cast<std::uint32_t>(
-          tag::KMIP_TAG_APPLICATION_SPECIFIC_INFORMATION
+      static_cast<std::uint32_t>(tag::KMIP_TAG_APPLICATION_SPECIFIC_INFORMATION
       );
   inline constexpr std::uint32_t KMIP_TAG_ATTRIBUTE_REFERENCE =
       static_cast<std::uint32_t>(tag::KMIP_TAG_ATTRIBUTE_REFERENCE);
@@ -2358,8 +2334,7 @@ namespace kmipcore {
   inline constexpr std::uint32_t KMIP_TAG_MASK_GENERATOR =
       static_cast<std::uint32_t>(tag::KMIP_TAG_MASK_GENERATOR);
   inline constexpr std::uint32_t KMIP_TAG_MASK_GENERATOR_HASHING_ALGORITHM =
-      static_cast<std::uint32_t>(
-          tag::KMIP_TAG_MASK_GENERATOR_HASHING_ALGORITHM
+      static_cast<std::uint32_t>(tag::KMIP_TAG_MASK_GENERATOR_HASHING_ALGORITHM
       );
   inline constexpr std::uint32_t KMIP_TAG_P_SOURCE =
       static_cast<std::uint32_t>(tag::KMIP_TAG_P_SOURCE);
@@ -2400,8 +2375,7 @@ namespace kmipcore {
   inline constexpr std::uint32_t KMIP_TAG_COMMON_PROTECTION_STORAGE_MASKS =
       static_cast<std::uint32_t>(tag::KMIP_TAG_COMMON_PROTECTION_STORAGE_MASKS);
   inline constexpr std::uint32_t KMIP_TAG_PRIVATE_PROTECTION_STORAGE_MASKS =
-      static_cast<std::uint32_t>(
-          tag::KMIP_TAG_PRIVATE_PROTECTION_STORAGE_MASKS
+      static_cast<std::uint32_t>(tag::KMIP_TAG_PRIVATE_PROTECTION_STORAGE_MASKS
       );
   inline constexpr std::uint32_t KMIP_TAG_PUBLIC_PROTECTION_STORAGE_MASKS =
       static_cast<std::uint32_t>(tag::KMIP_TAG_PUBLIC_PROTECTION_STORAGE_MASKS);
@@ -2438,8 +2412,7 @@ namespace kmipcore {
   inline constexpr std::uint32_t KMIP_WRAP_TR31 =
       static_cast<std::uint32_t>(wrapping_method::KMIP_WRAP_TR31);
   inline constexpr std::uint32_t KMIP_REVOKE_UNSPECIFIED =
-      static_cast<std::uint32_t>(
-          revocation_reason_type::KMIP_REVOKE_UNSPECIFIED
+      static_cast<std::uint32_t>(revocation_reason_type::KMIP_REVOKE_UNSPECIFIED
       );
   inline constexpr std::uint32_t KMIP_REVOKE_KEY_COMPROMISE =
       static_cast<std::uint32_t>(
@@ -2464,8 +2437,7 @@ namespace kmipcore {
           revocation_reason_type::KMIP_REVOKE_PRIVILEDGE_WITHDRAWN
       );
   inline constexpr std::uint32_t KMIP_REVOKE_EXTENSIONS =
-      static_cast<std::uint32_t>(
-          revocation_reason_type::KMIP_REVOKE_EXTENSIONS
+      static_cast<std::uint32_t>(revocation_reason_type::KMIP_REVOKE_EXTENSIONS
       );
   inline constexpr std::uint32_t KMIP_SECDATA_PASSWORD =
       static_cast<std::uint32_t>(secret_data_type::KMIP_SECDATA_PASSWORD);

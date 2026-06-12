@@ -148,11 +148,9 @@ void test_date_time_extended_requires_kmip_2_0_for_requests() {
   item.setOperation(KMIP_OP_GET);
 
   auto payload = Element::createStructure(tag::KMIP_TAG_REQUEST_PAYLOAD);
-  payload->asStructure()->add(
-      Element::createDateTimeExtended(
-          tag::KMIP_TAG_TIME_STAMP, 1743075078123456LL
-      )
-  );
+  payload->asStructure()->add(Element::createDateTimeExtended(
+      tag::KMIP_TAG_TIME_STAMP, 1743075078123456LL
+  ));
   item.setRequestPayload(payload);
 
   RequestMessage request_14;
@@ -206,18 +204,14 @@ void test_date_time_extended_requires_kmip_2_0_for_responses() {
   batch_item->asStructure()->add(
       Element::createEnumeration(tag::KMIP_TAG_OPERATION, KMIP_OP_GET)
   );
-  batch_item->asStructure()->add(
-      Element::createEnumeration(
-          tag::KMIP_TAG_RESULT_STATUS, KMIP_STATUS_SUCCESS
-      )
-  );
+  batch_item->asStructure()->add(Element::createEnumeration(
+      tag::KMIP_TAG_RESULT_STATUS, KMIP_STATUS_SUCCESS
+  ));
 
   auto payload = Element::createStructure(tag::KMIP_TAG_RESPONSE_PAYLOAD);
-  payload->asStructure()->add(
-      Element::createDateTimeExtended(
-          tag::KMIP_TAG_TIME_STAMP, 1743075078123456LL
-      )
-  );
+  payload->asStructure()->add(Element::createDateTimeExtended(
+      tag::KMIP_TAG_TIME_STAMP, 1743075078123456LL
+  ));
   batch_item->asStructure()->add(payload);
   response->asStructure()->add(batch_item);
 
@@ -326,24 +320,18 @@ void test_response_message() {
   get_payload->asStructure()->add(
       Element::createTextString(tag::KMIP_TAG_UNIQUE_IDENTIFIER, "id-get-1")
   );
-  get_payload->asStructure()->add(
-      Element::createEnumeration(
-          tag::KMIP_TAG_OBJECT_TYPE, KMIP_OBJTYPE_SYMMETRIC_KEY
-      )
-  );
+  get_payload->asStructure()->add(Element::createEnumeration(
+      tag::KMIP_TAG_OBJECT_TYPE, KMIP_OBJTYPE_SYMMETRIC_KEY
+  ));
   auto symmetric_key = Element::createStructure(tag::KMIP_TAG_SYMMETRIC_KEY);
   auto key_block = Element::createStructure(tag::KMIP_TAG_KEY_BLOCK);
-  key_block->asStructure()->add(
-      Element::createEnumeration(
-          tag::KMIP_TAG_KEY_FORMAT_TYPE, KMIP_KEYFORMAT_RAW
-      )
-  );
+  key_block->asStructure()->add(Element::createEnumeration(
+      tag::KMIP_TAG_KEY_FORMAT_TYPE, KMIP_KEYFORMAT_RAW
+  ));
   auto key_value = Element::createStructure(tag::KMIP_TAG_KEY_VALUE);
-  key_value->asStructure()->add(
-      Element::createByteString(
-          tag::KMIP_TAG_KEY_MATERIAL, {0x10, 0x11, 0x12, 0x13}
-      )
-  );
+  key_value->asStructure()->add(Element::createByteString(
+      tag::KMIP_TAG_KEY_MATERIAL, {0x10, 0x11, 0x12, 0x13}
+  ));
   key_block->asStructure()->add(key_value);
   symmetric_key->asStructure()->add(key_block);
   get_payload->asStructure()->add(symmetric_key);
@@ -400,11 +388,9 @@ void test_typed_response_batch_items() {
   get_payload->asStructure()->add(
       Element::createTextString(tag::KMIP_TAG_UNIQUE_IDENTIFIER, "get-id")
   );
-  get_payload->asStructure()->add(
-      Element::createEnumeration(
-          tag::KMIP_TAG_OBJECT_TYPE, KMIP_OBJTYPE_SECRET_DATA
-      )
-  );
+  get_payload->asStructure()->add(Element::createEnumeration(
+      tag::KMIP_TAG_OBJECT_TYPE, KMIP_OBJTYPE_SECRET_DATA
+  ));
   auto secret_data = Element::createStructure(tag::KMIP_TAG_SECRET_DATA);
   auto key_block = Element::createStructure(tag::KMIP_TAG_KEY_BLOCK);
   auto key_value = Element::createStructure(tag::KMIP_TAG_KEY_VALUE);
@@ -412,12 +398,10 @@ void test_typed_response_batch_items() {
       Element::createByteString(tag::KMIP_TAG_KEY_MATERIAL, {0x61, 0x62})
   );
   key_block->asStructure()->add(key_value);
-  secret_data->asStructure()->add(
-      Element::createEnumeration(
-          tag::KMIP_TAG_SECRET_DATA_TYPE,
-          static_cast<int32_t>(secret_data_type::KMIP_SECDATA_PASSWORD)
-      )
-  );
+  secret_data->asStructure()->add(Element::createEnumeration(
+      tag::KMIP_TAG_SECRET_DATA_TYPE,
+      static_cast<int32_t>(secret_data_type::KMIP_SECDATA_PASSWORD)
+  ));
   secret_data->asStructure()->add(key_block);
   get_payload->asStructure()->add(secret_data);
 
@@ -437,11 +421,9 @@ void test_typed_response_batch_items() {
   attribute->asStructure()->add(
       Element::createTextString(tag::KMIP_TAG_ATTRIBUTE_NAME, "State")
   );
-  attribute->asStructure()->add(
-      Element::createEnumeration(
-          tag::KMIP_TAG_ATTRIBUTE_VALUE, KMIP_STATE_ACTIVE
-      )
-  );
+  attribute->asStructure()->add(Element::createEnumeration(
+      tag::KMIP_TAG_ATTRIBUTE_VALUE, KMIP_STATE_ACTIVE
+  ));
   attributes_payload->asStructure()->add(attribute);
 
   ResponseBatchItem attributes_item;
@@ -523,11 +505,9 @@ void test_typed_response_batch_items() {
   query_payload->asStructure()->add(
       Element::createEnumeration(tag::KMIP_TAG_OPERATION, KMIP_OP_GET)
   );
-  query_payload->asStructure()->add(
-      Element::createEnumeration(
-          tag::KMIP_TAG_OBJECT_TYPE, KMIP_OBJTYPE_SECRET_DATA
-      )
-  );
+  query_payload->asStructure()->add(Element::createEnumeration(
+      tag::KMIP_TAG_OBJECT_TYPE, KMIP_OBJTYPE_SECRET_DATA
+  ));
   query_payload->asStructure()->add(
       Element::createTextString(tag::KMIP_TAG_VENDOR_IDENTIFICATION, "VendorX")
   );
@@ -606,11 +586,9 @@ void test_response_required_fields() {
     batch_item->asStructure()->add(
         Element::createEnumeration(tag::KMIP_TAG_OPERATION, KMIP_OP_GET)
     );
-    batch_item->asStructure()->add(
-        Element::createEnumeration(
-            tag::KMIP_TAG_RESULT_STATUS, KMIP_STATUS_SUCCESS
-        )
-    );
+    batch_item->asStructure()->add(Element::createEnumeration(
+        tag::KMIP_TAG_RESULT_STATUS, KMIP_STATUS_SUCCESS
+    ));
     response_message->asStructure()->add(batch_item);
 
     bool threw = false;
@@ -639,11 +617,9 @@ void test_response_required_fields() {
     batch_item->asStructure()->add(
         Element::createEnumeration(tag::KMIP_TAG_OPERATION, KMIP_OP_GET)
     );
-    batch_item->asStructure()->add(
-        Element::createEnumeration(
-            tag::KMIP_TAG_RESULT_STATUS, KMIP_STATUS_SUCCESS
-        )
-    );
+    batch_item->asStructure()->add(Element::createEnumeration(
+        tag::KMIP_TAG_RESULT_STATUS, KMIP_STATUS_SUCCESS
+    ));
     response_message->asStructure()->add(batch_item);
 
     // Must NOT throw: under-delivery (fewer items than declared) is accepted.
@@ -673,11 +649,9 @@ void test_response_required_fields() {
       item->asStructure()->add(
           Element::createEnumeration(tag::KMIP_TAG_OPERATION, op)
       );
-      item->asStructure()->add(
-          Element::createEnumeration(
-              tag::KMIP_TAG_RESULT_STATUS, KMIP_STATUS_SUCCESS
-          )
-      );
+      item->asStructure()->add(Element::createEnumeration(
+          tag::KMIP_TAG_RESULT_STATUS, KMIP_STATUS_SUCCESS
+      ));
       return item;
     };
     response_message->asStructure()->add(make_success_item(KMIP_OP_GET));
@@ -737,11 +711,9 @@ void test_response_required_fields() {
     batch_item->asStructure()->add(
         Element::createEnumeration(tag::KMIP_TAG_OPERATION, KMIP_OP_GET)
     );
-    batch_item->asStructure()->add(
-        Element::createEnumeration(
-            tag::KMIP_TAG_RESULT_STATUS, KMIP_STATUS_OPERATION_FAILED
-        )
-    );
+    batch_item->asStructure()->add(Element::createEnumeration(
+        tag::KMIP_TAG_RESULT_STATUS, KMIP_STATUS_OPERATION_FAILED
+    ));
     response_message->asStructure()->add(batch_item);
 
     bool threw = false;
@@ -770,11 +742,9 @@ void test_response_required_fields() {
     response_message->asStructure()->add(header.toElement());
 
     auto batch_item = Element::createStructure(tag::KMIP_TAG_BATCH_ITEM);
-    batch_item->asStructure()->add(
-        Element::createEnumeration(
-            tag::KMIP_TAG_RESULT_STATUS, KMIP_STATUS_SUCCESS
-        )
-    );
+    batch_item->asStructure()->add(Element::createEnumeration(
+        tag::KMIP_TAG_RESULT_STATUS, KMIP_STATUS_SUCCESS
+    ));
     response_message->asStructure()->add(batch_item);
 
     // Parse must succeed without throwing.
@@ -843,8 +813,10 @@ void test_max_response_size_range_check() {
     req.setMaxResponseSize(2147483648UL);  // INT32_MAX + 1
     assert(false && "Should have thrown on overflow");
   } catch (const KmipException &e) {
-    assert(std::string(e.what()).find("exceeds int32_t maximum") !=
-           std::string::npos);
+    assert(
+        std::string(e.what()).find("exceeds int32_t maximum") !=
+        std::string::npos
+    );
   }
 
   // Invalid: very large size_t value
@@ -852,8 +824,10 @@ void test_max_response_size_range_check() {
     req.setMaxResponseSize(18446744073709551615UL);  // SIZE_MAX on 64-bit
     assert(false && "Should have thrown on overflow");
   } catch (const KmipException &e) {
-    assert(std::string(e.what()).find("exceeds int32_t maximum") !=
-           std::string::npos);
+    assert(
+        std::string(e.what()).find("exceeds int32_t maximum") !=
+        std::string::npos
+    );
   }
 
   std::cout << "MaxResponseSize range check test passed" << std::endl;

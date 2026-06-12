@@ -33,8 +33,7 @@
 /** @brief Full kmipcore version string in "major.minor.patch" form. */
 #define KMIPCORE_VERSION_STR                                                   \
   KMIPCORE_TOSTRING_I(KMIPCORE_VERSION_MAJOR)                                  \
-  "." KMIPCORE_TOSTRING_I(KMIPCORE_VERSION_MINOR) "." KMIPCORE_TOSTRING_I(     \
-      KMIPCORE_VERSION_PATCH                                                   \
-  )
+  "." KMIPCORE_TOSTRING_I(KMIPCORE_VERSION_MINOR                               \
+  ) "." KMIPCORE_TOSTRING_I(KMIPCORE_VERSION_PATCH)
 
 #endif  // KMIPCORE_VERSION_HPP

@@ -42,12 +42,10 @@ namespace kmipclient {
           .set_crypto_length(static_cast<int32_t>(size * 8))
           // CryptographicUsageMask is required by strict servers (e.g. Vault).
           // ENCRYPT|DECRYPT is the correct default for a symmetric AES key.
-          .set_usage_mask(
-              static_cast<cryptographic_usage_mask>(
-                  kmipcore::KMIP_CRYPTOMASK_ENCRYPT |
-                  kmipcore::KMIP_CRYPTOMASK_DECRYPT
-              )
-          );
+          .set_usage_mask(static_cast<cryptographic_usage_mask>(
+              kmipcore::KMIP_CRYPTOMASK_ENCRYPT |
+              kmipcore::KMIP_CRYPTOMASK_DECRYPT
+          ));
 
       return SymmetricKey(bytes, std::move(attrs));
     }

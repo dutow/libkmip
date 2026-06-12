@@ -61,24 +61,21 @@ int main(int argc, char **argv) {
   const int num_threads = argc > 7 ? std::stoi(argv[7]) : 4;
   const int max_pool_size = argc > 8 ? std::stoi(argv[8]) : 2;
 
-  std::cout << "Launching " << num_threads
-            << " threads against a pool of max " << max_pool_size
-            << " connections\n";
+  std::cout << "Launching " << num_threads << " threads against a pool of max "
+            << max_pool_size << " connections\n";
 
   // ------------------------------------------------------------------
   // Build the pool.  No connections are created here yet.
   // ------------------------------------------------------------------
-  KmipClientPool pool(
-      KmipClientPool::Config{
-          .host = host,
-          .port = port,
-          .client_cert = client_cert,
-          .client_key = client_key,
-          .server_ca_cert = server_ca_cert,
-          .timeout_ms = 5000,
-          .max_connections = static_cast<size_t>(max_pool_size),
-      }
-  );
+  KmipClientPool pool(KmipClientPool::Config{
+      .host = host,
+      .port = port,
+      .client_cert = client_cert,
+      .client_key = client_key,
+      .server_ca_cert = server_ca_cert,
+      .timeout_ms = 5000,
+      .max_connections = static_cast<size_t>(max_pool_size),
+  });
 
   // ------------------------------------------------------------------
   // Spawn threads – each borrows a connection, uses it, returns it.

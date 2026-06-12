@@ -128,8 +128,7 @@ static_assert(
     "Kmip must be move-constructible"
 );
 static_assert(
-    std::is_move_assignable_v<kmipclient::Kmip>,
-    "Kmip must be move-assignable"
+    std::is_move_assignable_v<kmipclient::Kmip>, "Kmip must be move-assignable"
 );
 static_assert(
     !std::is_copy_constructible_v<kmipclient::Kmip>,
@@ -172,9 +171,8 @@ TEST(IOUtilsTest, SendFailsIfTransportStopsProgress) {
 TEST(IOUtilsTest, AcceptsResponsesLargerThanLegacy64KiBLimit) {
   FakeNetClient nc;
   const std::size_t payload_size = 128 * 1024;
-  nc.response_bytes = build_response_with_payload(
-      std::vector<uint8_t>(payload_size, 0xAB)
-  );
+  nc.response_bytes =
+      build_response_with_payload(std::vector<uint8_t>(payload_size, 0xAB));
 
   kmipclient::IOUtils io(nc);
   const std::vector<uint8_t> request{0x01};
@@ -204,7 +202,9 @@ TEST(IOUtilsTest, RejectsResponseThatExceedsCallerLimit) {
   }
 }
 
-TEST(IOUtilsTest, RejectsResponseThatExceedsHardLimitEvenIfCallerLimitIsHigher) {
+TEST(
+    IOUtilsTest, RejectsResponseThatExceedsHardLimitEvenIfCallerLimitIsHigher
+) {
   FakeNetClient nc;
   nc.response_bytes = build_response_with_payload(
       std::vector<uint8_t>(kmipcore::KMIP_MAX_MESSAGE_HARD_LIMIT + 1, 0x22)
@@ -216,9 +216,7 @@ TEST(IOUtilsTest, RejectsResponseThatExceedsHardLimitEvenIfCallerLimitIsHigher) 
 
   try {
     io.do_exchange(
-        request,
-        response,
-        kmipcore::KMIP_MAX_MESSAGE_HARD_LIMIT * 2
+        request, response, kmipcore::KMIP_MAX_MESSAGE_HARD_LIMIT * 2
     );
     FAIL() << "Expected do_exchange to enforce hard response limit";
   } catch (const kmipclient::KmipIOException &e) {
@@ -235,24 +233,18 @@ TEST(IOUtilsTest, RejectsResponseThatExceedsHardLimitEvenIfCallerLimitIsHigher) 
 TEST(IOUtilsTest, DebugLoggingRedactsSensitiveTtlvFields) {
   FakeNetClient nc;
 
-  auto request = kmipcore::Element::createStructure(
-      kmipcore::tag::KMIP_TAG_REQUEST_MESSAGE
-  );
-  request->asStructure()->add(
-      kmipcore::Element::createTextString(
-          kmipcore::tag::KMIP_TAG_USERNAME, "alice"
-      )
-  );
-  request->asStructure()->add(
-      kmipcore::Element::createTextString(
-          kmipcore::tag::KMIP_TAG_PASSWORD, "s3cr3t"
-      )
-  );
-  request->asStructure()->add(
-      kmipcore::Element::createByteString(
-          kmipcore::tag::KMIP_TAG_KEY_MATERIAL, {0xDE, 0xAD, 0xBE, 0xEF}
-      )
-  );
+  auto request =
+      kmipcore::Element::createStructure(kmipcore::tag::KMIP_TAG_REQUEST_MESSAGE
+      );
+  request->asStructure()->add(kmipcore::Element::createTextString(
+      kmipcore::tag::KMIP_TAG_USERNAME, "alice"
+  ));
+  request->asStructure()->add(kmipcore::Element::createTextString(
+      kmipcore::tag::KMIP_TAG_PASSWORD, "s3cr3t"
+  ));
+  request->asStructure()->add(kmipcore::Element::createByteString(
+      kmipcore::tag::KMIP_TAG_KEY_MATERIAL, {0xDE, 0xAD, 0xBE, 0xEF}
+  ));
   const auto request_bytes = serialize_element(request);
 
   auto response = kmipcore::Element::createStructure(
@@ -260,14 +252,10 @@ TEST(IOUtilsTest, DebugLoggingRedactsSensitiveTtlvFields) {
   );
   auto secret_data =
       kmipcore::Element::createStructure(kmipcore::tag::KMIP_TAG_SECRET_DATA);
-  secret_data->asStructure()->add(
-      kmipcore::Element::createEnumeration(
-          kmipcore::tag::KMIP_TAG_SECRET_DATA_TYPE,
-          static_cast<int32_t>(
-              kmipcore::secret_data_type::KMIP_SECDATA_PASSWORD
-          )
-      )
-  );
+  secret_data->asStructure()->add(kmipcore::Element::createEnumeration(
+      kmipcore::tag::KMIP_TAG_SECRET_DATA_TYPE,
+      static_cast<int32_t>(kmipcore::secret_data_type::KMIP_SECDATA_PASSWORD)
+  ));
   response->asStructure()->add(secret_data);
   nc.response_bytes = serialize_element(response);
 

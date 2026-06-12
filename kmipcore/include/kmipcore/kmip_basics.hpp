@@ -89,8 +89,8 @@ namespace kmipcore {
     /** @brief Finds the first child with the specified tag. */
     [[nodiscard]] std::shared_ptr<Element> find(Tag child_tag) const;
     /** @brief Finds all children with the specified tag. */
-    [[nodiscard]] std::vector<std::shared_ptr<Element>>
-        findAll(Tag child_tag) const;
+    [[nodiscard]] std::vector<std::shared_ptr<Element>> findAll(Tag child_tag
+    ) const;
   };
 
   /** @brief Variant that represents any supported KMIP TTLV value type. */

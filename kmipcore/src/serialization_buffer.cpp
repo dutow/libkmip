@@ -95,8 +95,7 @@ namespace kmipcore {
 
     // Cap maximum to prevent pathological allocations
     if (new_capacity > MAX_CAPACITY) {
-      throw KmipException(
-          "SerializationBuffer exceeded maximum size of 100 MB"
+      throw KmipException("SerializationBuffer exceeded maximum size of 100 MB"
       );
     }
 

@@ -155,16 +155,16 @@ namespace kmipcore {
      * Converts the stored variant to string (int → decimal, bool →
      * "true"/"false"). Returns @c std::nullopt when the attribute is absent.
      */
-    [[nodiscard]] std::optional<std::string>
-        get_as_string(std::string_view name) const;
+    [[nodiscard]] std::optional<std::string> get_as_string(std::string_view name
+    ) const;
 
     /** @brief Returns the int32 value of a generic attribute, or nullopt. */
-    [[nodiscard]] std::optional<int32_t>
-        get_int(std::string_view name) const noexcept;
+    [[nodiscard]] std::optional<int32_t> get_int(std::string_view name
+    ) const noexcept;
 
     /** @brief Returns the int64 value of a generic attribute, or nullopt. */
-    [[nodiscard]] std::optional<int64_t>
-        get_long(std::string_view name) const noexcept;
+    [[nodiscard]] std::optional<int64_t> get_long(std::string_view name
+    ) const noexcept;
 
     // -------------------------------------------------------------------------
     // Iteration / export

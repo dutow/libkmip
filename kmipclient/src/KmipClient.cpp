@@ -46,8 +46,8 @@ namespace kmipclient {
     };
   }
 
-  static std::vector<std::string>
-      default_get_secret_attrs(bool all_attributes) {
+  static std::vector<std::string> default_get_secret_attrs(bool all_attributes
+  ) {
     if (all_attributes) {
       return {};
     }
@@ -129,7 +129,9 @@ namespace kmipclient {
       kmipcore::ProtocolVersion version,
       bool close_on_destroy
   ) {
-    return std::make_shared<KmipClient>(net_client, logger, version, close_on_destroy);
+    return std::make_shared<KmipClient>(
+        net_client, logger, version, close_on_destroy
+    );
   }
 
   std::shared_ptr<KmipClient> KmipClient::create_shared(
@@ -138,7 +140,9 @@ namespace kmipclient {
       kmipcore::ProtocolVersion version,
       bool close_on_destroy
   ) {
-    return std::make_shared<KmipClient>(std::move(net_client), logger, version, close_on_destroy);
+    return std::make_shared<KmipClient>(
+        std::move(net_client), logger, version, close_on_destroy
+    );
   }
 
   KmipClient::~KmipClient() {
@@ -153,14 +157,13 @@ namespace kmipclient {
       const std::string &name, const std::string &group, const Key &k
   ) const {
     auto request = make_request_message();
-    const auto batch_item_id = request.add_batch_item(
-        kmipcore::RegisterKeyRequest(
+    const auto batch_item_id =
+        request.add_batch_item(kmipcore::RegisterKeyRequest(
             name,
             group,
             k.to_core_key(),
             request.getHeader().getProtocolVersion()
-        )
-    );
+        ));
 
     std::vector<uint8_t> response_bytes;
     io->do_exchange(
@@ -179,15 +182,14 @@ namespace kmipclient {
       const std::string &name, const std::string &group, const Secret &secret
   ) const {
     auto request = make_request_message();
-    const auto batch_item_id = request.add_batch_item(
-        kmipcore::RegisterSecretRequest(
+    const auto batch_item_id =
+        request.add_batch_item(kmipcore::RegisterSecretRequest(
             name,
             group,
             secret.value(),
             secret.get_secret_type(),
             request.getHeader().getProtocolVersion()
-        )
-    );
+        ));
 
     std::vector<uint8_t> response_bytes;
     io->do_exchange(
@@ -210,15 +212,14 @@ namespace kmipclient {
       cryptographic_usage_mask usage_mask
   ) const {
     auto request = make_request_message();
-    const auto batch_item_id = request.add_batch_item(
-        kmipcore::CreateSymmetricKeyRequest(
+    const auto batch_item_id =
+        request.add_batch_item(kmipcore::CreateSymmetricKeyRequest(
             name,
             group,
             static_cast<int32_t>(key_size),
             usage_mask,
             request.getHeader().getProtocolVersion()
-        )
-    );
+        ));
 
     std::vector<uint8_t> response_bytes;
     io->do_exchange(
@@ -240,14 +241,13 @@ namespace kmipclient {
       auto request = make_request_message();
       const auto get_item_id = request.add_batch_item(kmipcore::GetRequest(id));
 
-      const auto attributes_item_id = request.add_batch_item(
-          kmipcore::GetAttributesRequest(
+      const auto attributes_item_id =
+          request.add_batch_item(kmipcore::GetAttributesRequest(
               id,
               requested_attrs,
               request.getHeader().getProtocolVersion(),
               legacy_attribute_names_for_v2
-          )
-      );
+          ));
 
       std::vector<uint8_t> response_bytes;
       io->do_exchange(
@@ -301,19 +301,17 @@ namespace kmipclient {
     // Get Attributes requests: request all attributes and filter client-side.
     auto request = make_request_message();
     const auto get_item_id = request.add_batch_item(kmipcore::GetRequest(id));
-    const auto attributes_item_id = request.add_batch_item(
-        kmipcore::GetAttributesRequest(
+    const auto attributes_item_id =
+        request.add_batch_item(kmipcore::GetAttributesRequest(
             id, {}, request.getHeader().getProtocolVersion(), true
-        )
-    );
+        ));
     std::vector<uint8_t> response_bytes;
     io->do_exchange(
         request.serialize(), response_bytes, request.getMaxResponseSize()
     );
     kmipcore::ResponseParser rf(response_bytes, request);
     auto get_response =
-        rf.getResponseByBatchItemId<kmipcore::GetResponseBatchItem>(
-            get_item_id
+        rf.getResponseByBatchItemId<kmipcore::GetResponseBatchItem>(get_item_id
         );
     auto core_key = kmipcore::KeyParser::parseGetKeyResponse(get_response);
     auto key = Key::from_core_key(core_key);
@@ -332,22 +330,20 @@ namespace kmipclient {
     return key;
   }
 
-  Secret KmipClient::op_get_secret(
-      const std::string &id, bool all_attributes
-  ) const {
+  Secret KmipClient::op_get_secret(const std::string &id, bool all_attributes)
+      const {
     const auto requested_attrs = default_get_secret_attrs(all_attributes);
     const auto execute = [&](bool legacy_attribute_names_for_v2) {
       auto request = make_request_message();
       const auto get_item_id = request.add_batch_item(kmipcore::GetRequest(id));
 
-      const auto attributes_item_id = request.add_batch_item(
-          kmipcore::GetAttributesRequest(
+      const auto attributes_item_id =
+          request.add_batch_item(kmipcore::GetAttributesRequest(
               id,
               requested_attrs,
               request.getHeader().getProtocolVersion(),
               legacy_attribute_names_for_v2
-          )
-      );
+          ));
 
       std::vector<uint8_t> response_bytes;
       io->do_exchange(
@@ -409,19 +405,17 @@ namespace kmipclient {
 
     auto request = make_request_message();
     const auto get_item_id = request.add_batch_item(kmipcore::GetRequest(id));
-    const auto attributes_item_id = request.add_batch_item(
-        kmipcore::GetAttributesRequest(
+    const auto attributes_item_id =
+        request.add_batch_item(kmipcore::GetAttributesRequest(
             id, {}, request.getHeader().getProtocolVersion(), true
-        )
-    );
+        ));
     std::vector<uint8_t> response_bytes;
     io->do_exchange(
         request.serialize(), response_bytes, request.getMaxResponseSize()
     );
     kmipcore::ResponseParser rf(response_bytes, request);
     auto get_response =
-        rf.getResponseByBatchItemId<kmipcore::GetResponseBatchItem>(
-            get_item_id
+        rf.getResponseByBatchItemId<kmipcore::GetResponseBatchItem>(get_item_id
         );
     Secret secret = kmipcore::KeyParser::parseGetSecretResponse(get_response);
     auto attrs_response =
@@ -492,14 +486,13 @@ namespace kmipclient {
     const auto execute = [&](const std::vector<std::string> &selectors,
                              bool legacy_attribute_names_for_v2) {
       auto request = make_request_message();
-      const auto batch_item_id = request.add_batch_item(
-          kmipcore::GetAttributesRequest(
+      const auto batch_item_id =
+          request.add_batch_item(kmipcore::GetAttributesRequest(
               id,
               selectors,
               request.getHeader().getProtocolVersion(),
               legacy_attribute_names_for_v2
-          )
-      );
+          ));
 
       std::vector<uint8_t> response_bytes;
       io->do_exchange(
@@ -541,16 +534,14 @@ namespace kmipclient {
 
     for (std::size_t batch = 0; batch < MAX_BATCHES_IN_SEARCH; ++batch) {
       auto request = make_request_message();
-      const auto batch_item_id = request.add_batch_item(
-          kmipcore::LocateRequest(
-              false,
-              name,
-              o_type,
-              MAX_ITEMS_IN_BATCH,
-              offset,
-              request.getHeader().getProtocolVersion()
-          )
-      );
+      const auto batch_item_id = request.add_batch_item(kmipcore::LocateRequest(
+          false,
+          name,
+          o_type,
+          MAX_ITEMS_IN_BATCH,
+          offset,
+          request.getHeader().getProtocolVersion()
+      ));
 
       std::vector<uint8_t> response_bytes;
       io->do_exchange(
@@ -606,11 +597,7 @@ namespace kmipclient {
       const std::size_t page_size = std::min(remaining, MAX_ITEMS_IN_BATCH);
       std::optional<std::size_t> located_items;
       auto got = op_locate_page_by_group(
-          group,
-          o_type,
-          offset,
-          page_size,
-          &located_items
+          group, o_type, offset, page_size, &located_items
       );
 
       if (got.empty()) {
@@ -648,16 +635,14 @@ namespace kmipclient {
     }
 
     auto request = make_request_message();
-    const auto batch_item_id = request.add_batch_item(
-        kmipcore::LocateRequest(
-            !group.empty(),
-            group,
-            o_type,
-            page_size,
-            offset,
-            request.getHeader().getProtocolVersion()
-        )
-    );
+    const auto batch_item_id = request.add_batch_item(kmipcore::LocateRequest(
+        !group.empty(),
+        group,
+        o_type,
+        page_size,
+        offset,
+        request.getHeader().getProtocolVersion()
+    ));
 
     std::vector<uint8_t> response_bytes;
     io->do_exchange(
@@ -665,9 +650,10 @@ namespace kmipclient {
     );
 
     kmipcore::ResponseParser rf(response_bytes, request);
-    auto response = rf.getResponseByBatchItemId<kmipcore::LocateResponseBatchItem>(
-        batch_item_id
-    );
+    auto response =
+        rf.getResponseByBatchItemId<kmipcore::LocateResponseBatchItem>(
+            batch_item_id
+        );
 
     if (located_items != nullptr) {
       const auto total_items = response.getLocatePayload().getLocatedItems();
@@ -709,12 +695,8 @@ namespace kmipclient {
            batch < MAX_BATCHES_IN_SEARCH && result.size() < max_ids;
            ++batch) {
         std::optional<std::size_t> located_items;
-        auto page = op_all_page(
-            o_type,
-            offset,
-            probe_page_size,
-            &located_items
-        );
+        auto page =
+            op_all_page(o_type, offset, probe_page_size, &located_items);
         if (page.empty()) {
           break;
         }
@@ -731,7 +713,8 @@ namespace kmipclient {
           }
         }
 
-        if (located_items.has_value() && offset + probe_page_size >= *located_items) {
+        if (located_items.has_value() &&
+            offset + probe_page_size >= *located_items) {
           break;
         }
         if (!added_any && page.size() < probe_page_size) {
@@ -766,11 +749,9 @@ namespace kmipclient {
 
     kmipcore::RequestBatchItem item;
     item.setOperation(kmipcore::KMIP_OP_DISCOVER_VERSIONS);
-    item.setRequestPayload(
-        kmipcore::Element::createStructure(
-            kmipcore::tag::KMIP_TAG_REQUEST_PAYLOAD
-        )
-    );
+    item.setRequestPayload(kmipcore::Element::createStructure(
+        kmipcore::tag::KMIP_TAG_REQUEST_PAYLOAD
+    ));
     const auto batch_item_id = request.add_batch_item(std::move(item));
 
     std::vector<uint8_t> response_bytes;
@@ -835,8 +816,7 @@ namespace kmipclient {
     QueryServerInfo result;
     result.supported_operations.reserve(response.getOperations().size());
     for (const auto op : response.getOperations()) {
-      result.supported_operations.push_back(
-          static_cast<kmipcore::operation>(op)
+      result.supported_operations.push_back(static_cast<kmipcore::operation>(op)
       );
     }
     result.supported_object_types.reserve(response.getObjectTypes().size());

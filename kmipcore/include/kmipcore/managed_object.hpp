@@ -83,8 +83,8 @@ namespace kmipcore {
      * @note Does not look up typed attributes (state, algorithm, …).
      *       Use attributes().object_state() etc. for those.
      */
-    [[nodiscard]] const std::string &
-        attribute_value(const std::string &name) const noexcept {
+    [[nodiscard]] const std::string &attribute_value(const std::string &name
+    ) const noexcept {
       return attributes_.get(name);
     }
 

@@ -33,8 +33,7 @@ namespace kmipclient {
   ) noexcept
     : pool_(&pool), slot_(std::move(slot)) {}
 
-  KmipClientPool::BorrowedClient::BorrowedClient(
-      BorrowedClient &&other
+  KmipClientPool::BorrowedClient::BorrowedClient(BorrowedClient &&other
   ) noexcept
     : pool_(other.pool_),
       slot_(std::move(other.slot_)),
@@ -42,9 +41,9 @@ namespace kmipclient {
     other.pool_ = nullptr;  // disown so other's dtor is a no-op
   }
 
-  KmipClientPool::BorrowedClient &KmipClientPool::BorrowedClient::operator=(
-      BorrowedClient &&other
-  ) noexcept {
+  KmipClientPool::BorrowedClient &
+      KmipClientPool::BorrowedClient::operator=(BorrowedClient &&other
+      ) noexcept {
     if (this != &other) {
       // Return our current slot before taking ownership of the incoming one.
       if (pool_ != nullptr && slot_ != nullptr) {
@@ -180,12 +179,9 @@ namespace kmipclient {
     if (!slot_available) {
       std::ostringstream oss;
       oss << "KmipClientPool: no connection available after " << timeout.count()
-          << "ms (pool size: " << config_.max_connections
-          << ", all " << total_count_ << " connections in use)";
-      throw kmipcore::KmipException(
-          -1,
-          oss.str()
-      );
+          << "ms (pool size: " << config_.max_connections << ", all "
+          << total_count_ << " connections in use)";
+      throw kmipcore::KmipException(-1, oss.str());
     }
     return acquire_locked(std::move(lk));
   }

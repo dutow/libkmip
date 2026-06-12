@@ -74,8 +74,8 @@ namespace kmipcore {
     );
     return structure;
   }
-  ProtocolVersion
-      ProtocolVersion::fromElement(std::shared_ptr<Element> element) {
+  ProtocolVersion ProtocolVersion::fromElement(std::shared_ptr<Element> element
+  ) {
     if (!element || element->tag != tag::KMIP_TAG_PROTOCOL_VERSION ||
         element->type != Type::KMIP_TYPE_STRUCTURE) {
       throw KmipException("Invalid ProtocolVersion element");
@@ -96,18 +96,14 @@ namespace kmipcore {
     auto structure = Element::createStructure(tag::KMIP_TAG_REQUEST_HEADER);
     structure->asStructure()->add(protocolVersion_.toElement());
     if (maximumResponseSize_) {
-      structure->asStructure()->add(
-          Element::createInteger(
-              tag::KMIP_TAG_MAXIMUM_RESPONSE_SIZE, *maximumResponseSize_
-          )
-      );
+      structure->asStructure()->add(Element::createInteger(
+          tag::KMIP_TAG_MAXIMUM_RESPONSE_SIZE, *maximumResponseSize_
+      ));
     }
     if (batchOrderOption_) {
-      structure->asStructure()->add(
-          Element::createBoolean(
-              tag::KMIP_TAG_BATCH_ORDER_OPTION, *batchOrderOption_
-          )
-      );
+      structure->asStructure()->add(Element::createBoolean(
+          tag::KMIP_TAG_BATCH_ORDER_OPTION, *batchOrderOption_
+      ));
     }
     if (timeStamp_) {
       structure->asStructure()->add(
@@ -118,11 +114,9 @@ namespace kmipcore {
       auto authentication =
           Element::createStructure(tag::KMIP_TAG_AUTHENTICATION);
       auto credential = Element::createStructure(tag::KMIP_TAG_CREDENTIAL);
-      credential->asStructure()->add(
-          Element::createEnumeration(
-              tag::KMIP_TAG_CREDENTIAL_TYPE, KMIP_CRED_USERNAME_AND_PASSWORD
-          )
-      );
+      credential->asStructure()->add(Element::createEnumeration(
+          tag::KMIP_TAG_CREDENTIAL_TYPE, KMIP_CRED_USERNAME_AND_PASSWORD
+      ));
 
       auto credential_value =
           Element::createStructure(tag::KMIP_TAG_CREDENTIAL_VALUE);
@@ -210,12 +204,10 @@ namespace kmipcore {
         Element::createEnumeration(tag::KMIP_TAG_OPERATION, operation_)
     );
     if (uniqueBatchItemId_ != 0) {
-      structure->asStructure()->add(
-          Element::createByteString(
-              tag::KMIP_TAG_UNIQUE_BATCH_ITEM_ID,
-              encode_batch_item_id(uniqueBatchItemId_)
-          )
-      );
+      structure->asStructure()->add(Element::createByteString(
+          tag::KMIP_TAG_UNIQUE_BATCH_ITEM_ID,
+          encode_batch_item_id(uniqueBatchItemId_)
+      ));
     }
     if (requestPayload_) {
       structure->asStructure()->add(requestPayload_);
@@ -270,8 +262,7 @@ namespace kmipcore {
     return id;
   }
 
-  void RequestMessage::setBatchItems(
-      const std::vector<RequestBatchItem> &items
+  void RequestMessage::setBatchItems(const std::vector<RequestBatchItem> &items
   ) {
     clearBatchItems();
     for (const auto &item : items) {
@@ -283,8 +274,7 @@ namespace kmipcore {
   void RequestMessage::setMaxResponseSize(size_t size) {
     if (size > static_cast<size_t>(std::numeric_limits<int32_t>::max())) {
       throw KmipException(
-          "setMaxResponseSize: size_t value " +
-          std::to_string(size) +
+          "setMaxResponseSize: size_t value " + std::to_string(size) +
           " exceeds int32_t maximum (" +
           std::to_string(std::numeric_limits<int32_t>::max()) + ")"
       );
@@ -300,15 +290,13 @@ namespace kmipcore {
 
   std::vector<uint8_t> RequestMessage::serialize() const {
     if (batchItems_.empty()) {
-      throw KmipException(
-          "Cannot serialize RequestMessage with no batch items"
+      throw KmipException("Cannot serialize RequestMessage with no batch items"
       );
     }
 
     RequestMessage request(*this);
-    request.header_.setBatchCount(
-        static_cast<int32_t>(request.batchItems_.size())
-    );
+    request.header_.setBatchCount(static_cast<int32_t>(request.batchItems_.size(
+    )));
     // BatchOrderOption is only meaningful (and should only be emitted) when
     // the batch contains more than one item.  Sending it for a single-item
     // batch is harmless per the spec but confuses some server implementations.
@@ -404,29 +392,23 @@ namespace kmipcore {
         Element::createEnumeration(tag::KMIP_TAG_OPERATION, operation_)
     );
     if (uniqueBatchItemId_ != 0) {
-      structure->asStructure()->add(
-          Element::createByteString(
-              tag::KMIP_TAG_UNIQUE_BATCH_ITEM_ID,
-              encode_batch_item_id(uniqueBatchItemId_)
-          )
-      );
+      structure->asStructure()->add(Element::createByteString(
+          tag::KMIP_TAG_UNIQUE_BATCH_ITEM_ID,
+          encode_batch_item_id(uniqueBatchItemId_)
+      ));
     }
     structure->asStructure()->add(
         Element::createEnumeration(tag::KMIP_TAG_RESULT_STATUS, resultStatus_)
     );
     if (resultReason_) {
-      structure->asStructure()->add(
-          Element::createEnumeration(
-              tag::KMIP_TAG_RESULT_REASON, *resultReason_
-          )
-      );
+      structure->asStructure()->add(Element::createEnumeration(
+          tag::KMIP_TAG_RESULT_REASON, *resultReason_
+      ));
     }
     if (resultMessage_) {
-      structure->asStructure()->add(
-          Element::createTextString(
-              tag::KMIP_TAG_RESULT_MESSAGE, *resultMessage_
-          )
-      );
+      structure->asStructure()->add(Element::createTextString(
+          tag::KMIP_TAG_RESULT_MESSAGE, *resultMessage_
+      ));
     }
     if (responsePayload_) {
       structure->asStructure()->add(responsePayload_);
@@ -470,8 +452,7 @@ namespace kmipcore {
     }
     if (rbi.resultStatus_ == KMIP_STATUS_OPERATION_FAILED &&
         !rbi.resultReason_.has_value()) {
-      throw KmipException(
-          "Missing Result Reason for failed response batch item"
+      throw KmipException("Missing Result Reason for failed response batch item"
       );
     }
     auto msg = element->getChild(tag::KMIP_TAG_RESULT_MESSAGE);
@@ -494,8 +475,8 @@ namespace kmipcore {
     validate_element_types_for_version(structure, header_.getProtocolVersion());
     return structure;
   }
-  ResponseMessage
-      ResponseMessage::fromElement(std::shared_ptr<Element> element) {
+  ResponseMessage ResponseMessage::fromElement(std::shared_ptr<Element> element
+  ) {
     if (!element || element->tag != tag::KMIP_TAG_RESPONSE_MESSAGE ||
         element->type != Type::KMIP_TYPE_STRUCTURE) {
       throw KmipException("Invalid ResponseMessage element");

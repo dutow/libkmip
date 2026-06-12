@@ -35,8 +35,7 @@
 /** @brief Full kmipclient version string in "major.minor.patch" form. */
 #define KMIPCLIENT_VERSION_STR                                                 \
   KMIPCLIENT_TOSTRING_I(KMIPCLIENT_VERSION_MAJOR)                              \
-  "." KMIPCLIENT_TOSTRING_I(                                                   \
-      KMIPCLIENT_VERSION_MINOR                                                 \
+  "." KMIPCLIENT_TOSTRING_I(KMIPCLIENT_VERSION_MINOR                           \
   ) "." KMIPCLIENT_TOSTRING_I(KMIPCLIENT_VERSION_PATCH)
 
 #endif  // KMIPCLIENT_VERSION_H
